@@ -1,1 +1,1 @@
-# ds2025
+# Pandas exercises
