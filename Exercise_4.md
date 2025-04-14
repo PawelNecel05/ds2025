@@ -100,7 +100,19 @@ dirty_iris
 
 
 <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -359,7 +371,7 @@ ax = violation_counts.plot(kind='bar', figsize=(10, 6))
 plt.title('Summary of Rule Violations')
 plt.xlabel('Rules')
 plt.ylabel('Number of Violations')
-
+plt.savefig('./Exercise_4_images/1.png')
 # Add percentage labels above the bars
 for p in ax.patches:
     ax.annotate(f'{p.get_height() / len(dirty_iris) * 100:.1f}%', 
@@ -368,14 +380,11 @@ for p in ax.patches:
                 textcoords='offset points')
 
 plt.show()
-
-![Plot](./Exercise_4_images/1.png)
-
 ```
 
 
     
-![png](output_29_0.png)
+![png](Exercise_4_files/Exercise_4_29_0.png)
     
 
 
@@ -415,15 +424,13 @@ plt.figure(figsize=(10, 6))
 plt.boxplot(dirty_iris['Sepal.Length'].dropna())
 plt.title('Boxplot of Sepal Length')
 plt.ylabel('Sepal Length')
+plt.savefig('./Exercise_4_images/2.png')
 plt.show()
-
-![Plot](./Exercise_4_images/2.png)
-
 ```
 
 
     
-![png](output_33_0.png)
+![png](Exercise_4_files/Exercise_4_33_0.png)
     
 
 
@@ -479,15 +486,13 @@ sns.boxplot(x='Species', y='Sepal.Length', data=dirty_iris)
 plt.title('Boxplot of Sepal Length by Species')
 plt.xlabel('Species')
 plt.ylabel('Sepal Length')
+plt.savefig('./Exercise_4_images/3.png')
 plt.show()
-
-![Plot](./Exercise_4_images/3.png)
-
 ```
 
 
     
-![png](output_38_0.png)
+![png](Exercise_4_files/Exercise_4_38_0.png)
     
 
 
@@ -545,20 +550,18 @@ for col in violated_df.columns:
 ```python
 import missingno as msno
 msno.dendrogram(dirty_iris);
+plt.savefig('./Exercise_4_images/4.png')
 # homework describe approaches to handle missing data and imputations methods, find out how to do it using existing libraries, in python
 # row-wise or column-wise deletion, generally not recomended, because you lose a lot of data
 # To imputate, we may use mean, median, mode - generaly a fixed value, this would be a simple imputation method
 # or we can use a more sophisticated method, like KNN, which uses the distance between points to find similar points and fill in the missing values
 # we may also use MICE, which is a more advanced method that uses multiple imputations to fill in the missing values
 # in the python library sklean.impute, we can find the KNNImputer, SimpleImputer and IterativeImputer classes, which can be used to impute missing values
-
-![Plot](./Exercise_4_images/4.png)
-
 ```
 
 
     
-![png](output_44_0.png)
+![png](Exercise_4_files/Exercise_4_44_0.png)
     
 
 
@@ -684,6 +687,7 @@ plt.title('Income Boxplot')
 plt.ylabel('Income ($000s)')
 
 plt.tight_layout()
+plt.savefig('./Exercise_4_images/5.png')
 plt.show()
 
 # Print basic statistics for Income
@@ -717,6 +721,7 @@ sns.histplot(carseats_copy['Income_Zscaled'], bins=20, kde=True)
 plt.subplot(2, 2, 2)
 sns.histplot(carseats_copy['Income_Zscaled_sklearn'], bins=20, kde=True)
 plt.tight_layout()
+plt.savefig('./Exercise_4_images/6.png')
 plt.show()
 # Apply MinMax scaling using NumPy
 income_min = carseats_copy['Income'].min()
@@ -740,21 +745,13 @@ sns.histplot(carseats_copy['Income_MinMaxScaled'], bins=20, kde=True)
 plt.subplot(3, 2, 2)
 sns.histplot(carseats_copy['Income_MinMaxScaled_sklearn'], bins=20, kde=True)
 plt.tight_layout()
+plt.savefig('./Exercise_4_images/7.png')
 plt.show()
-
-![Plot](./Exercise_4_images/5.png)
-
-
-![Plot](./Exercise_4_images/6.png)
-
-
-![Plot](./Exercise_4_images/7.png)
-
 ```
 
 
     
-![png](output_51_0.png)
+![png](Exercise_4_files/Exercise_4_51_0.png)
     
 
 
@@ -779,7 +776,7 @@ plt.show()
 
 
     
-![png](output_51_2.png)
+![png](Exercise_4_files/Exercise_4_51_2.png)
     
 
 
@@ -794,7 +791,7 @@ plt.show()
 
 
     
-![png](output_51_4.png)
+![png](Exercise_4_files/Exercise_4_51_4.png)
     
 
 
@@ -825,10 +822,8 @@ print(carseats_copy[['Income', 'Income_Quantile_Bins']].head())
 carseats_copy['Income_Quantile_Bins'].value_counts(sort=False).plot(kind='bar', title='Quantile Binning of Income')
 plt.xlabel('Income Bins')
 plt.ylabel('Frequency')
+plt.savefig('./Exercise_4_images/8.png')
 plt.show()
-
-![Plot](./Exercise_4_images/8.png)
-
 ```
 
        Income Income_Quantile_Bins
@@ -841,7 +836,7 @@ plt.show()
 
 
     
-![png](output_54_1.png)
+![png](Exercise_4_files/Exercise_4_54_1.png)
     
 
 
@@ -863,10 +858,8 @@ print(carseats_copy[['Income', 'Income_Fixed_Bins']].head())
 carseats_copy['Income_Fixed_Bins'].value_counts(sort=False).plot(kind='bar', title='Fixed-Length Interval Binning of Income')
 plt.xlabel('Income Bins')
 plt.ylabel('Frequency')
+plt.savefig('./Exercise_4_images/9.png')
 plt.show()
-
-![Plot](./Exercise_4_images/9.png)
-
 ```
 
     120.0
@@ -880,7 +873,7 @@ plt.show()
 
 
     
-![png](output_56_1.png)
+![png](Exercise_4_files/Exercise_4_56_1.png)
     
 
 
@@ -925,7 +918,422 @@ optb.fit(x, y)
 
 
 
-<div id="sk-container-id-3" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>OptimalBinning(name=&#x27;mean radius&#x27;)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" checked><label for="sk-estimator-id-3" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>OptimalBinning</div></div><div><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>OptimalBinning(name=&#x27;mean radius&#x27;)</pre></div> </div></div></div></div>
+<style>#sk-container-id-4 {
+  /* Definition of color scheme common for light and dark mode */
+  --sklearn-color-text: #000;
+  --sklearn-color-text-muted: #666;
+  --sklearn-color-line: gray;
+  /* Definition of color scheme for unfitted estimators */
+  --sklearn-color-unfitted-level-0: #fff5e6;
+  --sklearn-color-unfitted-level-1: #f6e4d2;
+  --sklearn-color-unfitted-level-2: #ffe0b3;
+  --sklearn-color-unfitted-level-3: chocolate;
+  /* Definition of color scheme for fitted estimators */
+  --sklearn-color-fitted-level-0: #f0f8ff;
+  --sklearn-color-fitted-level-1: #d4ebff;
+  --sklearn-color-fitted-level-2: #b3dbfd;
+  --sklearn-color-fitted-level-3: cornflowerblue;
+
+  /* Specific color for light theme */
+  --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, white)));
+  --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-icon: #696969;
+
+  @media (prefers-color-scheme: dark) {
+    /* Redefinition of color scheme for dark theme */
+    --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, #111)));
+    --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-icon: #878787;
+  }
+}
+
+#sk-container-id-4 {
+  color: var(--sklearn-color-text);
+}
+
+#sk-container-id-4 pre {
+  padding: 0;
+}
+
+#sk-container-id-4 input.sk-hidden--visually {
+  border: 0;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+#sk-container-id-4 div.sk-dashed-wrapped {
+  border: 1px dashed var(--sklearn-color-line);
+  margin: 0 0.4em 0.5em 0.4em;
+  box-sizing: border-box;
+  padding-bottom: 0.4em;
+  background-color: var(--sklearn-color-background);
+}
+
+#sk-container-id-4 div.sk-container {
+  /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
+     but bootstrap.min.css set `[hidden] { display: none !important; }`
+     so we also need the `!important` here to be able to override the
+     default hidden behavior on the sphinx rendered scikit-learn.org.
+     See: https://github.com/scikit-learn/scikit-learn/issues/21755 */
+  display: inline-block !important;
+  position: relative;
+}
+
+#sk-container-id-4 div.sk-text-repr-fallback {
+  display: none;
+}
+
+div.sk-parallel-item,
+div.sk-serial,
+div.sk-item {
+  /* draw centered vertical line to link estimators */
+  background-image: linear-gradient(var(--sklearn-color-text-on-default-background), var(--sklearn-color-text-on-default-background));
+  background-size: 2px 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+/* Parallel-specific style estimator block */
+
+#sk-container-id-4 div.sk-parallel-item::after {
+  content: "";
+  width: 100%;
+  border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
+  flex-grow: 1;
+}
+
+#sk-container-id-4 div.sk-parallel {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  background-color: var(--sklearn-color-background);
+  position: relative;
+}
+
+#sk-container-id-4 div.sk-parallel-item {
+  display: flex;
+  flex-direction: column;
+}
+
+#sk-container-id-4 div.sk-parallel-item:first-child::after {
+  align-self: flex-end;
+  width: 50%;
+}
+
+#sk-container-id-4 div.sk-parallel-item:last-child::after {
+  align-self: flex-start;
+  width: 50%;
+}
+
+#sk-container-id-4 div.sk-parallel-item:only-child::after {
+  width: 0;
+}
+
+/* Serial-specific style estimator block */
+
+#sk-container-id-4 div.sk-serial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--sklearn-color-background);
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+
+/* Toggleable style: style used for estimator/Pipeline/ColumnTransformer box that is
+clickable and can be expanded/collapsed.
+- Pipeline and ColumnTransformer use this feature and define the default style
+- Estimators will overwrite some part of the style using the `sk-estimator` class
+*/
+
+/* Pipeline and ColumnTransformer style (default) */
+
+#sk-container-id-4 div.sk-toggleable {
+  /* Default theme specific background. It is overwritten whether we have a
+  specific estimator or a Pipeline/ColumnTransformer */
+  background-color: var(--sklearn-color-background);
+}
+
+/* Toggleable label */
+#sk-container-id-4 label.sk-toggleable__label {
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  margin-bottom: 0;
+  padding: 0.5em;
+  box-sizing: border-box;
+  text-align: center;
+  align-items: start;
+  justify-content: space-between;
+  gap: 0.5em;
+}
+
+#sk-container-id-4 label.sk-toggleable__label .caption {
+  font-size: 0.6rem;
+  font-weight: lighter;
+  color: var(--sklearn-color-text-muted);
+}
+
+#sk-container-id-4 label.sk-toggleable__label-arrow:before {
+  /* Arrow on the left of the label */
+  content: "▸";
+  float: left;
+  margin-right: 0.25em;
+  color: var(--sklearn-color-icon);
+}
+
+#sk-container-id-4 label.sk-toggleable__label-arrow:hover:before {
+  color: var(--sklearn-color-text);
+}
+
+/* Toggleable content - dropdown */
+
+#sk-container-id-4 div.sk-toggleable__content {
+  max-height: 0;
+  max-width: 0;
+  overflow: hidden;
+  text-align: left;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-4 div.sk-toggleable__content.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-4 div.sk-toggleable__content pre {
+  margin: 0.2em;
+  border-radius: 0.25em;
+  color: var(--sklearn-color-text);
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-4 div.sk-toggleable__content.fitted pre {
+  /* unfitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-4 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+  /* Expand drop-down */
+  max-height: 200px;
+  max-width: 100%;
+  overflow: auto;
+}
+
+#sk-container-id-4 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+  content: "▾";
+}
+
+/* Pipeline/ColumnTransformer-specific style */
+
+#sk-container-id-4 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-4 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator-specific style */
+
+/* Colorize estimator box */
+#sk-container-id-4 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-4 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+#sk-container-id-4 div.sk-label label.sk-toggleable__label,
+#sk-container-id-4 div.sk-label label {
+  /* The background is the default theme color */
+  color: var(--sklearn-color-text-on-default-background);
+}
+
+/* On hover, darken the color of the background */
+#sk-container-id-4 div.sk-label:hover label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+/* Label box, darken color on hover, fitted */
+#sk-container-id-4 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator label */
+
+#sk-container-id-4 div.sk-label label {
+  font-family: monospace;
+  font-weight: bold;
+  display: inline-block;
+  line-height: 1.2em;
+}
+
+#sk-container-id-4 div.sk-label-container {
+  text-align: center;
+}
+
+/* Estimator-specific */
+#sk-container-id-4 div.sk-estimator {
+  font-family: monospace;
+  border: 1px dotted var(--sklearn-color-border-box);
+  border-radius: 0.25em;
+  box-sizing: border-box;
+  margin-bottom: 0.5em;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-4 div.sk-estimator.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+/* on hover */
+#sk-container-id-4 div.sk-estimator:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-4 div.sk-estimator.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Specification for estimator info (e.g. "i" and "?") */
+
+/* Common style for "i" and "?" */
+
+.sk-estimator-doc-link,
+a:link.sk-estimator-doc-link,
+a:visited.sk-estimator-doc-link {
+  float: right;
+  font-size: smaller;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1em;
+  height: 1em;
+  width: 1em;
+  text-decoration: none !important;
+  margin-left: 0.5em;
+  text-align: center;
+  /* unfitted */
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+  color: var(--sklearn-color-unfitted-level-1);
+}
+
+.sk-estimator-doc-link.fitted,
+a:link.sk-estimator-doc-link.fitted,
+a:visited.sk-estimator-doc-link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+div.sk-estimator:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover,
+div.sk-label-container:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+div.sk-estimator.fitted:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover,
+div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+/* Span, style for the box shown on hovering the info icon */
+.sk-estimator-doc-link span {
+  display: none;
+  z-index: 9999;
+  position: relative;
+  font-weight: normal;
+  right: .2ex;
+  padding: .5ex;
+  margin: .5ex;
+  width: min-content;
+  min-width: 20ex;
+  max-width: 50ex;
+  color: var(--sklearn-color-text);
+  box-shadow: 2pt 2pt 4pt #999;
+  /* unfitted */
+  background: var(--sklearn-color-unfitted-level-0);
+  border: .5pt solid var(--sklearn-color-unfitted-level-3);
+}
+
+.sk-estimator-doc-link.fitted span {
+  /* fitted */
+  background: var(--sklearn-color-fitted-level-0);
+  border: var(--sklearn-color-fitted-level-3);
+}
+
+.sk-estimator-doc-link:hover span {
+  display: block;
+}
+
+/* "?"-specific style due to the `<a>` HTML tag */
+
+#sk-container-id-4 a.estimator_doc_link {
+  float: right;
+  font-size: 1rem;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1rem;
+  height: 1rem;
+  width: 1rem;
+  text-decoration: none;
+  /* unfitted */
+  color: var(--sklearn-color-unfitted-level-1);
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+}
+
+#sk-container-id-4 a.estimator_doc_link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+#sk-container-id-4 a.estimator_doc_link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+#sk-container-id-4 a.estimator_doc_link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+}
+</style><div id="sk-container-id-4" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>OptimalBinning(name=&#x27;mean radius&#x27;)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" checked><label for="sk-estimator-id-4" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>OptimalBinning</div></div><div><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>OptimalBinning(name=&#x27;mean radius&#x27;)</pre></div> </div></div></div></div>
 
 
 
@@ -987,7 +1395,19 @@ binning_table.build()
 
 
 <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1148,29 +1568,33 @@ You can use the method plot to visualize the histogram and WoE or event rate cur
 
 ```python
 binning_table.plot(metric="woe")
-
-![Plot](./Exercise_4_images/10.png)
-
+plt.savefig('./Exercise_4_images/10.png')
 ```
 
 
     
-![png](output_77_0.png)
+![png](Exercise_4_files/Exercise_4_77_0.png)
     
+
+
+
+    <Figure size 640x480 with 0 Axes>
 
 
 
 ```python
 binning_table.plot(metric="event_rate")
-
-![Plot](./Exercise_4_images/11.png)
-
+plt.savefig('./Exercise_4_images/11.png')
 ```
 
 
     
-![png](output_78_0.png)
+![png](Exercise_4_files/Exercise_4_78_0.png)
     
+
+
+
+    <Figure size 640x480 with 0 Axes>
 
 
 Note that WoE is inversely related to the event rate, i.e., a monotonically ascending event rate ensures a monotonically descending WoE and vice-versa. We will see more monotonic trend options in the advanced tutorial.
@@ -1193,6 +1617,7 @@ print(carseats.isnull().sum())
 # Visualize missing values
 sns.heatmap(carseats.isnull(), cbar=False, cmap="viridis")
 plt.title("Missing Values Heatmap")
+plt.savefig(f'./Exercise_4_images/12.png')
 plt.show()
 numerical_columns = carseats.select_dtypes(include=[np.number]).columns
 for col in numerical_columns:
@@ -1215,42 +1640,15 @@ for col, indices in outliers.items():
 print("Updated DataFrame with Outliers Replaced by NaN:")
 print(carseats.isnull().sum())
 # we can see that the outliers became np.nan and we may impute them using the KNNImputer
-
-![Plot](./Exercise_4_images/12.png)
-
-
-![Plot](./Exercise_4_images/13.png)
-
-
-![Plot](./Exercise_4_images/14.png)
-
-
-![Plot](./Exercise_4_images/15.png)
-
-
-![Plot](./Exercise_4_images/16.png)
-
-
-![Plot](./Exercise_4_images/17.png)
-
-
-![Plot](./Exercise_4_images/18.png)
-
-
-![Plot](./Exercise_4_images/19.png)
-
-
-![Plot](./Exercise_4_images/20.png)
-
 ```
 
     Missing Values:
-    Sales           0
-    CompPrice       0
+    Sales           1
+    CompPrice       2
     Income         20
-    Advertising     0
+    Advertising     1
     Population      0
-    Price           0
+    Price           7
     ShelveLoc       0
     Age             0
     Education       0
@@ -1261,65 +1659,65 @@ print(carseats.isnull().sum())
 
 
     
-![png](output_84_1.png)
+![png](Exercise_4_files/Exercise_4_84_1.png)
     
 
 
 
     
-![png](output_84_2.png)
+![png](Exercise_4_files/Exercise_4_84_2.png)
     
 
 
 
     
-![png](output_84_3.png)
+![png](Exercise_4_files/Exercise_4_84_3.png)
     
 
 
 
     
-![png](output_84_4.png)
+![png](Exercise_4_files/Exercise_4_84_4.png)
     
 
 
 
     
-![png](output_84_5.png)
+![png](Exercise_4_files/Exercise_4_84_5.png)
     
 
 
 
     
-![png](output_84_6.png)
+![png](Exercise_4_files/Exercise_4_84_6.png)
     
 
 
 
     
-![png](output_84_7.png)
+![png](Exercise_4_files/Exercise_4_84_7.png)
     
 
 
 
     
-![png](output_84_8.png)
+![png](Exercise_4_files/Exercise_4_84_8.png)
     
 
 
 
     
-![png](output_84_9.png)
+![png](Exercise_4_files/Exercise_4_84_9.png)
     
 
 
     Outliers Detected:
-    Sales: 1 outlier(s)
-    CompPrice: 2 outlier(s)
+    Sales: 0 outlier(s)
+    CompPrice: 0 outlier(s)
     Income: 0 outlier(s)
-    Advertising: 1 outlier(s)
+    Advertising: 0 outlier(s)
     Population: 0 outlier(s)
-    Price: 2 outlier(s)
+    Price: 1 outlier(s)
     Age: 0 outlier(s)
     Education: 0 outlier(s)
     Updated DataFrame with Outliers Replaced by NaN:
@@ -1328,7 +1726,7 @@ print(carseats.isnull().sum())
     Income         20
     Advertising     1
     Population      0
-    Price           2
+    Price           8
     ShelveLoc       0
     Age             0
     Education       0
