@@ -369,7 +369,7 @@ for p in ax.patches:
 
 plt.show()
 
-![Plot](./Exercise_4_images/plot_119.png)
+![Plot](./Exercise_4_images/1.png)
 
 ```
 
@@ -417,7 +417,7 @@ plt.title('Boxplot of Sepal Length')
 plt.ylabel('Sepal Length')
 plt.show()
 
-![Plot](./Exercise_4_images/plot_121.png)
+![Plot](./Exercise_4_images/2.png)
 
 ```
 
@@ -481,7 +481,7 @@ plt.xlabel('Species')
 plt.ylabel('Sepal Length')
 plt.show()
 
-![Plot](./Exercise_4_images/plot_124.png)
+![Plot](./Exercise_4_images/3.png)
 
 ```
 
@@ -552,7 +552,7 @@ msno.dendrogram(dirty_iris);
 # we may also use MICE, which is a more advanced method that uses multiple imputations to fill in the missing values
 # in the python library sklean.impute, we can find the KNNImputer, SimpleImputer and IterativeImputer classes, which can be used to impute missing values
 
-![Plot](./Exercise_4_images/plot_127.png)
+![Plot](./Exercise_4_images/4.png)
 
 ```
 
@@ -742,13 +742,13 @@ sns.histplot(carseats_copy['Income_MinMaxScaled_sklearn'], bins=20, kde=True)
 plt.tight_layout()
 plt.show()
 
-![Plot](./Exercise_4_images/plot_129.png)
+![Plot](./Exercise_4_images/5.png)
 
 
-![Plot](./Exercise_4_images/plot_129.png)
+![Plot](./Exercise_4_images/6.png)
 
 
-![Plot](./Exercise_4_images/plot_129.png)
+![Plot](./Exercise_4_images/7.png)
 
 ```
 
@@ -827,7 +827,7 @@ plt.xlabel('Income Bins')
 plt.ylabel('Frequency')
 plt.show()
 
-![Plot](./Exercise_4_images/plot_130.png)
+![Plot](./Exercise_4_images/8.png)
 
 ```
 
@@ -865,7 +865,7 @@ plt.xlabel('Income Bins')
 plt.ylabel('Frequency')
 plt.show()
 
-![Plot](./Exercise_4_images/plot_131.png)
+![Plot](./Exercise_4_images/9.png)
 
 ```
 
@@ -1149,7 +1149,7 @@ You can use the method plot to visualize the histogram and WoE or event rate cur
 ```python
 binning_table.plot(metric="woe")
 
-![Plot](./Exercise_4_images/plot_140.png)
+![Plot](./Exercise_4_images/10.png)
 
 ```
 
@@ -1163,7 +1163,7 @@ binning_table.plot(metric="woe")
 ```python
 binning_table.plot(metric="event_rate")
 
-![Plot](./Exercise_4_images/plot_141.png)
+![Plot](./Exercise_4_images/11.png)
 
 ```
 
@@ -1216,31 +1216,31 @@ print("Updated DataFrame with Outliers Replaced by NaN:")
 print(carseats.isnull().sum())
 # we can see that the outliers became np.nan and we may impute them using the KNNImputer
 
-![Plot](./Exercise_4_images/plot_None.png)
+![Plot](./Exercise_4_images/12.png)
 
 
-![Plot](./Exercise_4_images/plot_None.png)
+![Plot](./Exercise_4_images/13.png)
 
 
-![Plot](./Exercise_4_images/plot_None.png)
+![Plot](./Exercise_4_images/14.png)
 
 
-![Plot](./Exercise_4_images/plot_None.png)
+![Plot](./Exercise_4_images/15.png)
 
 
-![Plot](./Exercise_4_images/plot_None.png)
+![Plot](./Exercise_4_images/16.png)
 
 
-![Plot](./Exercise_4_images/plot_None.png)
+![Plot](./Exercise_4_images/17.png)
 
 
-![Plot](./Exercise_4_images/plot_None.png)
+![Plot](./Exercise_4_images/18.png)
 
 
-![Plot](./Exercise_4_images/plot_None.png)
+![Plot](./Exercise_4_images/19.png)
 
 
-![Plot](./Exercise_4_images/plot_None.png)
+![Plot](./Exercise_4_images/20.png)
 
 ```
 
