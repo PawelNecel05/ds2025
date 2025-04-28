@@ -1,10 +1,10 @@
 import os
 
 # List of Markdown files to combine
-markdown_files = ["Exercise 1.md", "Exercise 2.md", "Exercise 3.md"]
+markdown_files = ["Exercise5.md", "Exercise6.md"]
 
 # Output file
-output_file = "Combined_Exercises.md"
+output_file = "Exercises5and6.md"
 
 with open(output_file, 'w') as outfile:
     for fname in markdown_files:
