@@ -1,7 +1,7 @@
 import os
 
 # List of Markdown files to combine
-markdown_files = ["Exercise5.md", "Exercise6.md"]
+markdown_files = ["Ex5.md", "Exercise6.md"]
 
 # Output file
 output_file = "Exercises5and6.md"
