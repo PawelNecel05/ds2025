@@ -558,7 +558,7 @@ print(summary_stats)
     30-45                 95  37.65  12.84   38.30  12.2   78.3
     
 
-    C:\Users\Gamester\AppData\Local\Temp\ipykernel_14944\2012279776.py:1: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+
       summary_stats = df_estate.groupby('house_age_cat_str')['price_twd_msq'].agg([
     
 
