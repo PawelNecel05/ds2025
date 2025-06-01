@@ -4,5 +4,6 @@
 - [Data Visualisation](Exercises5and6.md)
 - [Univariate Analysis](Ex.md)
 - [Bivariate Analysis](Exercise9.md)
+- [Regression Analysis](Exercise10.md)
 # Paweł Necel
 # Jakub Wernerowski
