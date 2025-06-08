@@ -64,7 +64,19 @@ df_height.head(2)
 
 
 <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -779,6 +791,12 @@ if numeric_cols:
 if categorical_cols:
     categorical_imputer = SimpleImputer(strategy='most_frequent')
     df_sales_clean[categorical_cols] = categorical_imputer.fit_transform(df_sales_clean[categorical_cols])
+# Recheck missing values
+print("Missing values by column:")
+print(df_sales_clean.isnull().sum())
+print("\nPercentage of missing values:")
+missing_percentages = (df_sales_clean.isnull().sum() / len(df_sales_clean)) * 100
+print(missing_percentages)
 
 # Check for outliers in numeric columns
 def detect_outliers_iqr(df, column):
@@ -893,6 +911,25 @@ if len(categorical_cols) >= 2:
     
     Numeric columns: ['Store_Type', 'City_Type', 'Day_Temp', 'No_of_Customers', 'Sales']
     Categorical columns: ['Product_Quality']
+    Missing values by column:
+    Date               0
+    Store_Type         0
+    City_Type          0
+    Day_Temp           0
+    No_of_Customers    0
+    Sales              0
+    Product_Quality    0
+    dtype: int64
+    
+    Percentage of missing values:
+    Date               0.0
+    Store_Type         0.0
+    City_Type          0.0
+    Day_Temp           0.0
+    No_of_Customers    0.0
+    Sales              0.0
+    Product_Quality    0.0
+    dtype: float64
     Store_Type: 0 outliers (bounds: -0.88 to 4.12)
     Outliers: []
     City_Type: 0 outliers (bounds: -0.88 to 4.12)
