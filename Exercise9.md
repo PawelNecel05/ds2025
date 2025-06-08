@@ -759,7 +759,7 @@ df_sales_clean = df_sales_clean.drop_duplicates()
 threshold = 0.5
 cols_to_drop = missing_percentages[missing_percentages > 50].index.tolist()
 if cols_to_drop:
-    print(f"\nDropping columns with >50% missing values: {cols_to_drop}")
+    print(f"\nDropping columns with >50% missing values: {cols_to_drop}") # No such columns in this dataset
     df_sales_clean = df_sales_clean.drop(columns=cols_to_drop)
 
 numeric_cols = df_sales_clean.select_dtypes(include=['int64', 'float64']).columns.tolist()
@@ -787,13 +787,16 @@ def detect_outliers_iqr(df, column):
     IQR = Q3 - Q1
     lower_bound = Q1 - 1.5 * IQR
     upper_bound = Q3 + 1.5 * IQR
-    outliers = df[(df[column] < lower_bound) | (df[column] > upper_bound)]
-    return len(outliers), lower_bound, upper_bound
+    outliers_mask = (df[column] < lower_bound) | (df[column] > upper_bound)
+    outliers = df[outliers_mask][column]
+    
+    return len(outliers), lower_bound, upper_bound, outliers.values
 
 for col in numeric_cols:
     if df_sales_clean[col].dtype in ['int64', 'float64']:
-        outlier_count, lower, upper = detect_outliers_iqr(df_sales_clean, col)
+        outlier_count, lower, upper, outliers = detect_outliers_iqr(df_sales_clean, col)
         print(f"{col}: {outlier_count} outliers (bounds: {lower:.2f} to {upper:.2f})")
+        print(f"Outliers: {outliers}") # Looking at the outliers, I decide to keep them they seem reasonble enough
 
 # Convert Store_Type to categorical
 df_sales_clean['Store_Type'] = df_sales_clean['Store_Type'].astype('category')
@@ -805,7 +808,39 @@ categorical_cols = df_sales_clean.select_dtypes(include=['object', 'category']).
 print(f"Updated Numeric columns: {numeric_cols}")
 print(f"Updated Categorical columns: {categorical_cols}")
 
+# BIVARIATE ANALYSIS
+# 1. Correlation heatmap
+plt.figure(figsize=(10, 8))
+sns.heatmap(df_sales_clean[numeric_cols].corr(), annot=True, fmt='.2f', 
+            cmap='coolwarm', center=0, square=True)
+plt.title('Sales Data - Correlation Heatmap')
+plt.show()
 
+# 2. Strongest correlations (scatter plots)
+corr_matrix = df_sales_clean[numeric_cols].corr()
+# Find top 2 correlations
+strong_pairs = []
+for i in range(len(corr_matrix.columns)):
+    for j in range(i+1, len(corr_matrix.columns)):
+        if abs(corr_matrix.iloc[i, j]) > 0.3:
+            strong_pairs.append((corr_matrix.columns[i], corr_matrix.columns[j], 
+                               abs(corr_matrix.iloc[i, j])))
+
+# Plot top 2
+for col1, col2, corr_val in sorted(strong_pairs, key=lambda x: x[2], reverse=True)[:2]:
+    plt.figure(figsize=(8, 6))
+    sns.scatterplot(data=df_sales_clean, x=col1, y=col2, alpha=0.6)
+    sns.regplot(data=df_sales_clean, x=col1, y=col2, scatter=False, color='red')
+    plt.title(f'{col1} vs {col2} (r = {corr_val:.3f})')
+    plt.show()
+
+# 3. Categorical relationships
+if len(categorical_cols) >= 2:
+    ct = pd.crosstab(df_sales_clean[categorical_cols[0]], df_sales_clean[categorical_cols[1]])
+    plt.figure(figsize=(10, 6))
+    sns.heatmap(ct, annot=True, fmt='d', cmap='Blues')
+    plt.title(f'{categorical_cols[0]} vs {categorical_cols[1]}')
+    plt.show()
 ```
 
     Dataset shape: (12, 7)
@@ -859,13 +894,36 @@ print(f"Updated Categorical columns: {categorical_cols}")
     Numeric columns: ['Store_Type', 'City_Type', 'Day_Temp', 'No_of_Customers', 'Sales']
     Categorical columns: ['Product_Quality']
     Store_Type: 0 outliers (bounds: -0.88 to 4.12)
+    Outliers: []
     City_Type: 0 outliers (bounds: -0.88 to 4.12)
+    Outliers: []
     Day_Temp: 0 outliers (bounds: 21.50 to 35.50)
+    Outliers: []
     No_of_Customers: 1 outliers (bounds: 87.25 to 109.25)
+    Outliers: [115.]
     Sales: 2 outliers (bounds: 1713.25 to 4263.25)
+    Outliers: [1368. 1254.]
     Updated Numeric columns: ['City_Type', 'Day_Temp', 'No_of_Customers', 'Sales']
     Updated Categorical columns: ['Store_Type', 'Product_Quality']
     
+
+
+    
+![png](Exercise9_files/Exercise9_56_1.png)
+    
+
+
+
+    
+![png](Exercise9_files/Exercise9_56_2.png)
+    
+
+
+
+    
+![png](Exercise9_files/Exercise9_56_3.png)
+    
+
 
 # Summary
 
