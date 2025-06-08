@@ -64,6 +64,7 @@ df_height.head(2)
 
 
 <div>
+
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -740,35 +741,71 @@ print(df_sales.head())
 print("\nMissing values:")
 print(df_sales.isnull().sum())
 
-# Data preprocessing
-df_sales_clean = df_sales.dropna()
-print(f"\nAfter removing missing values: {df_sales_clean.shape}")
+# Data preprocessing corrections made
+# First examine the pattern of missing values
+print("Missing values by column:")
+print(df_sales.isnull().sum())
+print("\nPercentage of missing values:")
+missing_percentages = (df_sales.isnull().sum() / len(df_sales)) * 100
+print(missing_percentages)
 
-# Get numeric and categorical columns
+print(f"\nDuplicate rows: {df_sales.duplicated().sum()}")
+
+df_sales_clean = df_sales.copy()
+
+df_sales_clean = df_sales_clean.drop_duplicates()
+
+# Drop columns with >50% missing values (if any)
+threshold = 0.5
+cols_to_drop = missing_percentages[missing_percentages > 50].index.tolist()
+if cols_to_drop:
+    print(f"\nDropping columns with >50% missing values: {cols_to_drop}")
+    df_sales_clean = df_sales_clean.drop(columns=cols_to_drop)
+
 numeric_cols = df_sales_clean.select_dtypes(include=['int64', 'float64']).columns.tolist()
 categorical_cols = df_sales_clean.select_dtypes(include=['object']).columns.tolist()
-print("Numeric columns:", numeric_cols)
-print("Categorical columns:", categorical_cols) # too few categorical columns, so we will not do a chi-square test
-# 1. Quantitative correlation analysis (if we have numeric columns)
 
-# Correlation matrix
-corr_matrix = df_sales_clean[numeric_cols].corr()
-    
- # Heatmap
-plt.figure(figsize=(10, 8))
-sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', center=0)
-plt.title('Correlation Heatmap - Sales Data')
-plt.tight_layout()
-plt.show()
+print(f"\nNumeric columns: {numeric_cols}")
+print(f"Categorical columns: {categorical_cols}")
 
-# 3. Mixed analysis (quantitative vs qualitative)
-if len(numeric_cols) >= 1 and len(categorical_cols) >= 1:
-    plt.figure(figsize=(10, 6))
-    sns.boxplot(data=df_sales_clean, x=categorical_cols[0], y=numeric_cols[0])
-    plt.xticks(rotation=45)
-    plt.title(f'{numeric_cols[0]} by {categorical_cols[0]}')
-    plt.tight_layout()
-    plt.show()
+from sklearn.impute import SimpleImputer
+
+# For numeric columns - use median
+if numeric_cols:
+    numeric_imputer = SimpleImputer(strategy='median')
+    df_sales_clean[numeric_cols] = numeric_imputer.fit_transform(df_sales_clean[numeric_cols])
+
+# For categorical columns - use most frequent
+if categorical_cols:
+    categorical_imputer = SimpleImputer(strategy='most_frequent')
+    df_sales_clean[categorical_cols] = categorical_imputer.fit_transform(df_sales_clean[categorical_cols])
+
+# Check for outliers in numeric columns
+def detect_outliers_iqr(df, column):
+    Q1 = df[column].quantile(0.25)
+    Q3 = df[column].quantile(0.75)
+    IQR = Q3 - Q1
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+    outliers = df[(df[column] < lower_bound) | (df[column] > upper_bound)]
+    return len(outliers), lower_bound, upper_bound
+
+for col in numeric_cols:
+    if df_sales_clean[col].dtype in ['int64', 'float64']:
+        outlier_count, lower, upper = detect_outliers_iqr(df_sales_clean, col)
+        print(f"{col}: {outlier_count} outliers (bounds: {lower:.2f} to {upper:.2f})")
+
+# Convert Store_Type to categorical
+df_sales_clean['Store_Type'] = df_sales_clean['Store_Type'].astype('category')
+
+# Recheck column types
+numeric_cols = df_sales_clean.select_dtypes(include=['int64', 'float64']).columns.tolist()
+categorical_cols = df_sales_clean.select_dtypes(include=['object', 'category']).columns.tolist()
+
+print(f"Updated Numeric columns: {numeric_cols}")
+print(f"Updated Categorical columns: {categorical_cols}")
+
+
 ```
 
     Dataset shape: (12, 7)
@@ -797,23 +834,38 @@ if len(numeric_cols) >= 1 and len(categorical_cols) >= 1:
     Sales              3
     Product_Quality    2
     dtype: int64
+    Missing values by column:
+    Date               0
+    Store_Type         0
+    City_Type          0
+    Day_Temp           3
+    No_of_Customers    3
+    Sales              3
+    Product_Quality    2
+    dtype: int64
     
-    After removing missing values: (7, 7)
+    Percentage of missing values:
+    Date                0.000000
+    Store_Type          0.000000
+    City_Type           0.000000
+    Day_Temp           25.000000
+    No_of_Customers    25.000000
+    Sales              25.000000
+    Product_Quality    16.666667
+    dtype: float64
+    
+    Duplicate rows: 0
+    
     Numeric columns: ['Store_Type', 'City_Type', 'Day_Temp', 'No_of_Customers', 'Sales']
     Categorical columns: ['Product_Quality']
+    Store_Type: 0 outliers (bounds: -0.88 to 4.12)
+    City_Type: 0 outliers (bounds: -0.88 to 4.12)
+    Day_Temp: 0 outliers (bounds: 21.50 to 35.50)
+    No_of_Customers: 1 outliers (bounds: 87.25 to 109.25)
+    Sales: 2 outliers (bounds: 1713.25 to 4263.25)
+    Updated Numeric columns: ['City_Type', 'Day_Temp', 'No_of_Customers', 'Sales']
+    Updated Categorical columns: ['Store_Type', 'Product_Quality']
     
-
-
-    
-![png](Exercise9_files/Exercise9_56_1.png)
-    
-
-
-
-    
-![png](Exercise9_files/Exercise9_56_2.png)
-    
-
 
 # Summary
 
